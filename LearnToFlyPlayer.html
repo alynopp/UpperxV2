@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <title>LearnToFly - upperX</title>
+    <script src="https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle@0.1.0-nightly.2024.11.7/ruffle.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000; /* Optional: background color */
+        }
+        #game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        object {
+            width: 100%;
+            height: 100%;
+            max-width: 800px; /* Set these to the game's native max width */
+            max-height: 600px; /* Set these to the game's native max height */
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <object id="game-object" data="learntofly.swf" width="100%" height="100%"></object>
+    </div>
+
+    <script>
+        // Adjust the game size dynamically to the maximum supported size
+        const gameObject = document.getElementById('game-object');
+        const nativeWidth = 800; // Replace with your game's native width
+        const nativeHeight = 600; // Replace with your game's native height
+
+        function resizeGame() {
+            const windowRatio = window.innerWidth / window.innerHeight;
+            const gameRatio = nativeWidth / nativeHeight;
+
+            if (windowRatio > gameRatio) {
+                // Limit by height
+                gameObject.style.width = `${Math.min(nativeWidth, window.innerHeight * gameRatio)}px`;
+                gameObject.style.height = `${Math.min(nativeHeight, window.innerHeight)}px`;
+            } else {
+                // Limit by width
+                gameObject.style.width = `${Math.min(nativeWidth, window.innerWidth)}px`;
+                gameObject.style.height = `${Math.min(nativeHeight, window.innerWidth / gameRatio)}px`;
+            }
+        }
+
+        // Resize the game when the window is resized
+        window.addEventListener('resize', resizeGame);
+        window.addEventListener('load', resizeGame);
+    </script>
+</body>
+</html>
